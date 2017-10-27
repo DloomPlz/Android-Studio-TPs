@@ -5,56 +5,63 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.neost.myapplication.data.AdressBookApi;
+import com.example.neost.myapplication.data.Group;
+import com.example.neost.myapplication.data.HNArticlesAdapter;
+import com.example.neost.myapplication.R;
 import com.oc.hnapp.android.HNQueryTask;
 
-import java.security.acl.Group;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private HNQueryTask _task = null;
 
-    private RecyclerView recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Configure RecyclerView
-        GroupListAdapter adapter = new GroupListAdapter();
-        recycler = (RecyclerView) findViewById(R.id.recyclerView);
-        recycler.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Create HNQueryTask
-        //HNQueryTask task = new HNQueryTask(adapter,80,1);
+
+        // Adapter
+        HNArticlesAdapter adapter = new HNArticlesAdapter();
+        recyclerView.setAdapter(adapter);
+
+        //Task Config
+        _task = new HNQueryTask(adapter,80,1);
+        _task.execute();
 
     }
 
-    class GroupListAdapter extends RecyclerView.Adapter{
-
-        private Context context;
-        private List<String> listString;
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder (ViewGroup parent, int viewType)
-        {
-            return null;
-        }
-
-
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
-        {
-            // Recupération des contenus des cellules TODO XML DE LA CELLULE
-            //holder.itemView.findViewById()
-        }
-
-        @Override
-        public int getItemCount()
-        {
-            return listString.size();
-        }
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        _task.cancel(true);
     }
+
+
+
+
+
 }
+
+
+

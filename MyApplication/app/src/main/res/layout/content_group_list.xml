@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools = "http://schemas.android.com/tools"
     android:id="@+id/content_group_list"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="166dp"
+    android:paddingBottom="16dp"
     android:paddingLeft="64dp"
-    android:paddingTop="16dp"
     android:paddingRight="64dp"
-    tools:context="fr.cdi.adressbook.ui.GroupListActivity"
+    android:paddingTop="16dp"
     tools:showIn="@layout/activity_group_list">
 
-
     <android.support.v7.widget.RecyclerView
-        android.id = "@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/group_recycler_view">
 
+    </android.support.v7.widget.RecyclerView>
+
+</FrameLayout>
